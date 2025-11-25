@@ -14,7 +14,7 @@ Projeto completo contendo:
 - Spring Security (JWT + AuthenticationManager)
 - JPA / Hibernate
 - Thymeleaf
-- H2 / MySQL (dependendo da config)
+- H2
 
 ---
 
