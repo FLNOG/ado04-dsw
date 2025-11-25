@@ -14,7 +14,7 @@ import java.util.Date;
 public class JwtTokenService {
 
     // ATENÇÃO: Use uma chave secreta forte. Esta é apenas um exemplo.
-    private final String SECRET_KEY = "suaChaveSecretaDePeloMenos256BitsParaAssinaturaJWT"; // Mudar no app properties!
+    private final String SECRET_KEY = "aGVsbG9tZW5nYW1uaWZpY2FudGVzY3J5cHRzZWNyZXRrZXkzMjY="; // Mudar no app properties!
     private final long EXPIRATION_TIME = 300000; // 5 minutos em milissegundos
 
     private Key getSigningKey() {
@@ -26,11 +26,14 @@ public class JwtTokenService {
 
         return Jwts.builder()
                 .setSubject(userDetails.getUsername())
+                .claim("roles", userDetails.getAuthorities()
+                        .stream()
+                        .map(a -> a.getAuthority())
+                        .toList()) // Adiciona roles ao payload
                 .setIssuedAt(new Date(System.currentTimeMillis()))
                 .setExpiration(new Date(System.currentTimeMillis() + EXPIRATION_TIME))
                 .signWith(getSigningKey(), SignatureAlgorithm.HS256)
                 .compact();
-
     }
 
     public String extractUsername(String token) {

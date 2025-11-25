@@ -27,9 +27,12 @@ import java.io.IOException;
 public class SecurityConfig {
 
     private final JwtRequestFilter jwtRequestFilter;
+    private final JpaUserDetailsService userDetailsService;
 
-    public SecurityConfig(@Lazy JwtRequestFilter jwtRequestFilter) {
+    public SecurityConfig(@Lazy JwtRequestFilter jwtRequestFilter,
+                          JpaUserDetailsService userDetailsService) {
         this.jwtRequestFilter = jwtRequestFilter;
+        this.userDetailsService = userDetailsService;
     }
 
     @Bean
@@ -37,6 +40,10 @@ public class SecurityConfig {
         http.securityMatcher("/api/**")
                 .csrf(AbstractHttpConfigurer::disable)
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+
+                // ESSENCIAL!!
+                .userDetailsService(userDetailsService)
+
                 .addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class)
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/api/auth/**").permitAll()
@@ -48,6 +55,7 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+
         http
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/css/**", "/js/**", "/images/**", "/login/**").permitAll()
@@ -77,14 +85,8 @@ public class SecurityConfig {
 
     @Bean
     public AccessDeniedHandler accessDeniedHandler() {
-        return new AccessDeniedHandler() {
-            @Override
-            public void handle(HttpServletRequest request, HttpServletResponse response,
-                               org.springframework.security.access.AccessDeniedException accessDeniedException)
-                    throws IOException, ServletException {
+        return (request, response, ex) ->
                 response.sendRedirect("/cursos");
-            }
-        };
     }
 
     @Bean
@@ -93,7 +95,8 @@ public class SecurityConfig {
     }
 
     @Bean
-    public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration) throws Exception {
-        return authenticationConfiguration.getAuthenticationManager();
+    public AuthenticationManager authenticationManager(AuthenticationConfiguration configuration)
+            throws Exception {
+        return configuration.getAuthenticationManager();
     }
 }
