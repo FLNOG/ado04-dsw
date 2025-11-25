@@ -1,0 +1,79 @@
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+    <meta name="generator" content="Hugo 0.84.0">
+    <title>Grade Cursos</title>
+
+    <link rel="stylesheet" th:href="@{/css/dashboard.css}">
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/5.3.3/css/bootstrap.min.css}">
+</head>
+<body>
+
+<!-- NAVBAR -->
+<th:block th:replace="fragments :: navbar"></th:block>
+
+<main>
+
+    <div class="album py-5 bg-light">
+        <div class="container">
+
+            <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+
+                <div th:each="curso : ${cursos}">
+                    <div class="col">
+                        <div class="card shadow-sm">
+
+                            <!-- Imagem genérica para curso -->
+                            <img src="https://cdn-icons-png.flaticon.com/512/906/906175.png"
+                                 class="card-img-top" alt="imagem curso">
+
+                            <div class="card-body">
+                                <p class="card-text fw-bold" th:text="${curso.nome}">Nome do Curso</p>
+
+                                <p class="card-text">
+                                    Professor: <span th:text="${curso.professor}"></span>
+                                </p>
+
+                                <p class="card-text">
+                                    Categoria: <span th:text="${curso.categoria}"></span>
+                                </p>
+
+                                <p class="card-text text-success fw-bold">
+                                    R$ <span th:text="${curso.preco}"></span>
+                                </p>
+
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div class="btn-group">
+                                        <a th:href="@{/curso/{id}(id=${curso.id})}">Ver mais</a>
+                                    </div>
+                                    <small class="text-muted">
+                                        <span th:text="${curso.duracao}"></span>h
+                                    </small>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
+</main>
+
+<footer class="text-muted py-5">
+    <div class="container">
+        <p class="float-end mb-1"><a href="#">Voltar ao topo</a></p>
+        <p class="mb-1">Criado por &copy; Grade Cursos 2025!</p>
+    </div>
+</footer>
+
+<script th:src="@{/webjars/bootstrap/5.3.3/js/bootstrap.bundle.min.js}"></script>
+
+</body>
+</html>

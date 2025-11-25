@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title>Dashboard - Cursos</title>
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/5.3.3/css/bootstrap.min.css}">
+</head>
+<body>
+
+<!-- NAVBAR -->
+<th:block th:replace="fragments :: navbar"></th:block>
+
+<div class="container mt-5">
+
+    <h1>Dashboard de Cursos</h1>
+
+    <div class="mb-3 text-end">
+        <a th:href="@{/admin/cursos/novo}" class="btn btn-primary">Novo Curso</a>
+    </div>
+
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>Nome</th>
+            <th>Categoria</th>
+            <th>Professor</th>
+            <th>Duração</th>
+            <th>Preço</th>
+            <th>Ações</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr th:each="curso : ${cursos}">
+            <td th:text="${curso.nome}"></td>
+            <td th:text="${curso.categoria}"></td>
+            <td th:text="${curso.professor}"></td>
+            <td th:text="${curso.duracao + 'h'}"></td>
+            <td th:text="'R$ ' + ${curso.preco}"></td>
+
+            <td>
+                <a th:href="@{/admin/cursos/editar(id=${curso.id})}"
+                   class="btn btn-secondary btn-sm"
+                   sec:authorize="hasRole('ADMIN')">Editar</a>
+
+                <form th:action="@{/admin/cursos/deletar}" method="post" style="display:inline"
+                      sec:authorize="hasRole('ADMIN')">
+                    <input type="hidden" name="id" th:value="${curso.id}" />
+                    <button type="submit" class="btn btn-danger btn-sm">Excluir</button>
+                </form>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+</div>
+
+<script th:src="@{/webjars/jquery/3.7.1/jquery.min.js}"></script>
+<script th:src="@{/webjars/bootstrap/5.3.3/js/bootstrap.bundle.min.js}"></script>
+
+</body>
+</html>

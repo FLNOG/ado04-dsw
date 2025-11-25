@@ -1,0 +1,99 @@
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>Grade Cursos</title>
+
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/5.3.3/css/bootstrap.min.css}">
+
+    <style>
+        .detail-image {
+            max-height: 420px;
+            width: auto;
+            max-width: 100%;
+            object-fit: contain;
+        }
+
+        .detail-text {
+            padding-right: 1rem;
+        }
+    </style>
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+<th:block th:replace="fragments :: navbar"></th:block>
+
+<main>
+    <div class="album py-5 bg-light">
+        <div class="container">
+
+            <h1 class="h2">Detalhes do Curso</h1>
+            <hr>
+
+            <div class="row align-items-center">
+
+                <!-- Texto -->
+                <div class="col-12 col-md-6 detail-text">
+
+                    <div class="mb-3">
+                        <label class="form-label">Nome do Curso</label>
+                        <p class="fs-5 fw-bold" th:text="${curso.nome}">Nome do Curso</p>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Descrição</label>
+                        <p class="fs-5 fw-bold" th:text="${curso.descricao}">Descrição</p>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Duração</label>
+                        <p class="fs-5 fw-bold" th:text="${curso.duracao}">Duração</p>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Professor</label>
+                        <p class="fs-5 fw-bold" th:text="${curso.professor}">Professor</p>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Categoria</label>
+                        <p class="fs-5 fw-bold" th:text="${curso.categoria}">Categoria</p>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Preço</label>
+                        <p class="fs-5 fw-bold">R$ <span th:text="${curso.preco}"></span></p>
+                    </div>
+
+                </div>
+
+                <!-- Imagem -->
+                <div class="col-12 col-md-6 d-flex justify-content-center">
+                    <img class="img-fluid rounded detail-image"
+                         src="https://cdn-icons-png.flaticon.com/512/3135/3135755.png"
+                         alt="curso image">
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</main>
+
+<footer class="text-muted py-5">
+    <div class="container">
+        <p class="float-end mb-1">
+            <a href="#">Voltar ao topo</a>
+        </p>
+        <p class="mb-1">Criado por Grade Cursos © 2025</p>
+    </div>
+</footer>
+
+<script th:src="@{/webjars/bootstrap/5.3.3/js/bootstrap.bundle.min.js}"></script>
+
+</body>
+</html>

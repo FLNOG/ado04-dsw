@@ -1,0 +1,48 @@
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="utf-8">
+    <title>Cursos Disponíveis</title>
+
+    <link rel="stylesheet" th:href="@{/css/dashboard.css}">
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/5.3.3/css/bootstrap.min.css}">
+</head>
+<body>
+
+<!-- NAVBAR -->
+<th:block th:replace="fragments :: navbar"></th:block>
+
+<div class="container mt-4">
+
+    <h1 class="mb-4">Lista de Cursos</h1>
+
+    <div class="table-responsive">
+        <table class="table table-bordered">
+
+            <thead>
+            <tr>
+                <th>Nome</th>
+                <th>Professor</th>
+                <th>Categoria</th>
+                <th>Duração</th>
+                <th>Preço</th>
+            </tr>
+            </thead>
+
+            <tbody>
+            <tr th:each="curso : ${cursos}">
+                <td th:text="${curso.nome}"></td>
+                <td th:text="${curso.professor}"></td>
+                <td th:text="${curso.categoria}"></td>
+                <td th:text="${curso.duracao + 'h'}"></td>
+                <td th:text="'R$ ' + ${curso.preco}"></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+</div>
+
+<script th:src="@{/webjars/bootstrap/5.3.3/js/bootstrap.bundle.min.js}"></script>
+
+</body>
+</html>
