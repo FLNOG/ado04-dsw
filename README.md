@@ -1,4 +1,4 @@
-# 📚 Grades Platform – API + Web
+# 📚 Cadastro de Cursos – API + Web
 
 Projeto completo contendo:
 - **API REST** protegida com **JWT**
