@@ -23,7 +23,7 @@ Todas as rotas `/api/**` são protegidas e exigem um **token JWT**, exceto `/api
 
 Para gerar o token, use:
 
-### **POST - /api/auth/login**
+### **POST - http://localhost:8080/api/auth/login**
 ```json
 {
   "username": "admin",
